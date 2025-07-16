@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tính Lãi Suất Vay ( Thiên Mirae Asset)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+    }
+    .logo {
+      height: 60px;
+      margin-right: 20px;
+    }
+    h1 {
+      text-align: left;
+      margin: 0;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      margin-right: 10px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #333;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="mirae-asset-logo_64dc329edcd97.jpg" alt="Mirae Asset Logo" class="logo">
+    <h1>Tính Lãi Suất Vay<br>(Liên hệ: 0964307247 Mr Thiên)</h1>
+  </div>
 
+  <label>Ngày Giải Ngân:
+    <input type="date" id="disbursalDate" />
+  </label>
+
+  <label>Ngày Kỳ Đóng Đầu Tiên:
+    <input type="date" id="firstEmiDate" />
+  </label>
+
+  <label>Số Tiền Vay (VND):
+    <input type="text" id="loanAmount" value="0" oninput="formatNumber(this)" />
+  </label>
+
+  <label>% Bảo Hiểm (nếu có):
+    <input type="number" id="insurancePercent" value="7.7" step="0.1" />
+  </label>
+
+  <label>Lãi Suất (%/năm):
+    <input type="number" id="interestRate" value="52" />
+  </label>
+
+  <label>Số Kỳ Vay (tháng):
+    <input type="number" id="months" value="24" />
+  </label>
+
+  <button onclick="calculateLoan()">Tính Lịch Thanh Toán</button>
+  <button onclick="printPDF()">In PDF</button>
+  <button onclick="exportExcel()">Xuất Excel</button>
+
+  <div id="result"></div>
+
+  <footer>
+    © Copyright 2025 Võ Quốc Thiên
+  </footer>
+
+  <!-- Thêm thư viện SheetJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <script>
+    function formatNumber(input) {
+      let value = input.value.replace(/\D/g, "");
+      input.value = Number(value).toLocaleString('vi-VN');
+    }
+
+    function parseNumber(str) {
+      return Number(str.replace(/\./g, "").replace(/,/g, ""));
+    }
+
+    function calculateLoan() {
+      const disbursalDate = new Date(document.getElementById('disbursalDate').value);
+      const firstEmiDate = new Date(document.getElementById('firstEmiDate').value);
+      const loanAmount = parseNumber(document.getElementById('loanAmount').value);
+      const insurancePercent = Number(document.getElementById('insurancePercent').value);
+      const interestRate = Number(document.getElementById('interestRate').value);
+      const months = Number(document.getElementById('months').value);
+
+      const insurance = loanAmount * insurancePercent / 100;
+      const totalLoan = loanAmount + insurance;
+      const monthlyRate = interestRate / 12 / 100;
+
+      const EMI = totalLoan * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+      const collectionFee = 12000;
+
+      let table = `<h2>Kết Quả</h2>
+                  <p>Tổng vay + BH: ${totalLoan.toLocaleString()} VND</p>
+                  <p>Phí thu hộ mỗi kỳ: ${collectionFee.toLocaleString()} VND (cố định)</p>
+                  <p>Tổng thanh toán hàng tháng (gồm phí thu hộ): ${(EMI + collectionFee).toLocaleString(undefined, {maximumFractionDigits: 0})} VND</p>
+                  <table id="repaymentTable">
+                  <tr><th>Kỳ</th><th>Ngày Thanh Toán</th><th>Tiền Gốc</th><th>Tiền Lãi</th><th>Phí Thu Hộ</th><th>Tổng</th><th>Dư Nợ Còn Lại</th></tr>`;
+
+      let remaining = totalLoan;
+
+      for (let i = 1; i <= months; i++) {
+        let interest = remaining * monthlyRate;
+        let principal = EMI - interest;
+
+        let payDate = new Date(firstEmiDate);
+        payDate.setMonth(payDate.getMonth() + i - 1);
+
+        table += `<tr>
+          <td>${i}</td>
+          <td>${payDate.toLocaleDateString()}</td>
+          <td>${principal.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+          <td>${interest.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+          <td>${collectionFee.toLocaleString()}</td>
+          <td>${(EMI + collectionFee).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+          <td>${(remaining - principal).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+        </tr>`;
+
+        remaining -= principal;
+      }
+
+      table += `</table>`;
+      document.getElementById('result').innerHTML = table;
+    }
+
+    function printPDF() {
+      window.print();
+    }
+
+    function exportExcel() {
+      let table = document.getElementById('repaymentTable');
+      if (!table) {
+        alert("Vui lòng tính lịch thanh toán trước khi xuất Excel.");
+        return;
+      }
+
+      let wb = XLSX.utils.table_to_book(table, { sheet: "LichThanhToan" });
+      XLSX.writeFile(wb, "Lich_Thanh_Toan.xlsx");
+    }
+  </script>
+</body>
+</html>
