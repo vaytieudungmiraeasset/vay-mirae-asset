@@ -2,67 +2,21 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Tính Lãi Suất Vay ( Thiên Mirae Asset)</title>
+  <title>Tính Lãi Suất Vay (Của Thiên)</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-    }
-    .logo {
-      height: 60px;
-      margin-right: 20px;
-    }
-    h1 {
-      text-align: left;
-      margin: 0;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      margin-right: 10px;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 20px;
-    }
-    table, th, td {
-      border: 1px solid #333;
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-    }
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 14px;
-      color: #555;
-    }
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; }
+    h1 { text-align: center; }
+    label { display: block; margin-top: 10px; }
+    input { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 15px; padding: 10px 20px; margin-right: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    table, th, td { border: 1px solid #333; }
+    th, td { padding: 8px; text-align: center; }
+    footer { text-align: center; margin-top: 40px; font-size: 14px; color: #555; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="mirae-asset-logo_64dc329edcd97.jpg" alt="Mirae Asset Logo" class="logo">
-    <h1>Tính Lãi Suất Vay<br>(Liên hệ: 0964307247 Mr Thiên)</h1>
-  </div>
+  <h1>Tính Lãi Suất Vay (Liên hệ: 0964307247 Mr Thiên)</h1>
 
   <label>Ngày Giải Ngân:
     <input type="date" id="disbursalDate" />
@@ -76,7 +30,7 @@
     <input type="text" id="loanAmount" value="0" oninput="formatNumber(this)" />
   </label>
 
-  <label>% Bảo Hiểm (nếu có):
+  <label>% Bảo Hiểm Khoản Vay (nếu có):
     <input type="number" id="insurancePercent" value="7.7" step="0.1" />
   </label>
 
@@ -88,15 +42,13 @@
     <input type="number" id="months" value="24" />
   </label>
 
-  <button onclick="calculateLoan()">Tính Lịch Thanh Toán</button>
+  <button onclick="calculateLoan()">Tính Lịch Thanh Toán Tham Khảo</button>
   <button onclick="printPDF()">In PDF</button>
   <button onclick="exportExcel()">Xuất Excel</button>
 
   <div id="result"></div>
 
-  <footer>
-    © Copyright 2025 Võ Quốc Thiên
-  </footer>
+  <footer>© Copyright 2025 Võ Quốc Thiên. Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt</footer>
 
   <!-- Thêm thư viện SheetJS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -131,7 +83,7 @@
                   <p>Phí thu hộ mỗi kỳ: ${collectionFee.toLocaleString()} VND (cố định)</p>
                   <p>Tổng thanh toán hàng tháng (gồm phí thu hộ): ${(EMI + collectionFee).toLocaleString(undefined, {maximumFractionDigits: 0})} VND</p>
                   <table id="repaymentTable">
-                  <tr><th>Kỳ</th><th>Ngày Thanh Toán</th><th>Tiền Gốc</th><th>Tiền Lãi</th><th>Phí Thu Hộ</th><th>Tổng</th><th>Dư Nợ Còn Lại</th></tr>`;
+                  <tr><th>Kỳ</th><th>Ngày Thanh Toán</th><th>Tiền Gốc</th><th>Tiền Lãi</th><th>Tổng Tiền Đóng</th><th>Dư Nợ Còn Lại</th></tr>`;
 
       let remaining = totalLoan;
 
@@ -147,7 +99,6 @@
           <td>${payDate.toLocaleDateString()}</td>
           <td>${principal.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
           <td>${interest.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
-          <td>${collectionFee.toLocaleString()}</td>
           <td>${(EMI + collectionFee).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
           <td>${(remaining - principal).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
         </tr>`;
@@ -169,7 +120,6 @@
         alert("Vui lòng tính lịch thanh toán trước khi xuất Excel.");
         return;
       }
-
       let wb = XLSX.utils.table_to_book(table, { sheet: "LichThanhToan" });
       XLSX.writeFile(wb, "Lich_Thanh_Toan.xlsx");
     }
