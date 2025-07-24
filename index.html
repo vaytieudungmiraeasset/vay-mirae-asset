@@ -71,4 +71,25 @@
     <input type="tel" name="Số điện thoại" placeholder="Nhập số điện thoại" required />
 
     <label>Số tiền muốn vay:</label>
-    <input type="text" id="soTien" name="Số tiền muốn vay
+    <input type="text" id="soTien" name="Số tiền muốn vay" placeholder="VD: 50.000.000" required />
+
+    <button type="submit">Gửi đăng ký</button>
+  </form>
+
+  <footer>
+    © Copyright 2025 Võ Quốc Thiên. Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt
+  </footer>
+
+  <script>
+    const soTienInput = document.getElementById('soTien');
+    soTienInput.addEventListener('input', function(e) {
+      let value = this.value.replace(/\D/g, '');
+      if (value) {
+        this.value = Number(value).toLocaleString('vi-VN');
+      } else {
+        this.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
