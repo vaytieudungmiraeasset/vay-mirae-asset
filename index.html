@@ -14,6 +14,7 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      position: relative;
     }
     form {
       background: #fff;
@@ -57,18 +58,30 @@
       text-align: center;
       margin-top: 10px;
     }
-    .zalo {
-      margin-top: 15px;
-    }
-    .zalo img {
-      width: 48px;
-      height: 48px;
-    }
     footer {
       margin-top: 20px;
       text-align: center;
       color: #fff;
       font-size: 14px;
+    }
+    .zalo-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #008fe5;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      cursor: pointer;
+    }
+    .zalo-floating img {
+      width: 35px;
+      height: 35px;
     }
   </style>
 </head>
@@ -89,17 +102,16 @@
 
     <button type="submit">Gửi đăng ký</button>
     <p class="note">( Sau khi đăng ký vui lòng chú ý điện thoại, sẽ có nhân viên gọi lại hỗ trợ tư vấn )</p>
-
-    <div class="zalo">
-      <a href="https://zalo.me/YOUR_ZALO_ID" target="_blank">
-        <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo-share-icon.png" alt="Chat Zalo">
-      </a>
-    </div>
   </form>
 
   <footer>
     © Copyright 2025 Võ Quốc Thiên. Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt
   </footer>
+
+  <!-- Icon Zalo nổi góc phải -->
+  <a href="https://zalo.me/YOUR_ZALO_ID" target="_blank" class="zalo-floating">
+    <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo-share-icon.png" alt="Chat Zalo">
+  </a>
 
   <script>
     const soTienInput = document.getElementById('soTien');
