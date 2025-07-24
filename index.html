@@ -22,6 +22,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       max-width: 420px;
       width: 100%;
+      text-align: center;
     }
     h2 {
       text-align: center;
@@ -50,6 +51,19 @@
       font-weight: bold;
       color: #333;
     }
+    .note {
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .zalo {
+      margin-top: 15px;
+    }
+    .zalo img {
+      width: 48px;
+      height: 48px;
+    }
     footer {
       margin-top: 20px;
       text-align: center;
@@ -59,7 +73,7 @@
   </style>
 </head>
 <body>
-  <form action="https://formspree.io/f/xanbnrnk" method="POST">
+  <form action="https://formspree.io/f/xanbnrnk" method="POST" target="_blank">
     <h2>Đăng Ký Vay Mirae Asset</h2>
     <label>Họ và tên:</label>
     <input type="text" name="Họ và tên" placeholder="Nhập họ tên" required />
@@ -74,6 +88,13 @@
     <input type="text" id="soTien" name="Số tiền muốn vay" placeholder="VD: 50.000.000" required />
 
     <button type="submit">Gửi đăng ký</button>
+    <p class="note">( Sau khi đăng ký vui lòng chú ý điện thoại, sẽ có nhân viên gọi lại hỗ trợ tư vấn )</p>
+
+    <div class="zalo">
+      <a href="https://zalo.me/YOUR_ZALO_ID" target="_blank">
+        <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo-share-icon.png" alt="Chat Zalo">
+      </a>
+    </div>
   </form>
 
   <footer>
