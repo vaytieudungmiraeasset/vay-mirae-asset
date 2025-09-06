@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Đăng Ký Vay - Mirae Asset</title>
+  <title>Đăng Ký Vay Tại Mirae Asset</title>
   <style>
     *, *:before, *:after {
       box-sizing: border-box;
@@ -103,6 +103,22 @@
       height: 35px;
     }
 
+    /* Nút bật/tắt nhạc */
+    .music-btn {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: #ffcc00;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
     @media(max-width: 480px) {
       h2 {
         font-size: 18px;
@@ -114,6 +130,11 @@
       }
 
       .note {
+        font-size: 13px;
+      }
+
+      .music-btn {
+        padding: 10px 15px;
         font-size: 13px;
       }
     }
@@ -151,8 +172,17 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Chat Zalo">
   </a>
 
-  <!-- Script định dạng số tiền -->
+  <!-- Nhạc nền -->
+  <audio id="bgMusic" loop>
+    <source src="https://vaytieudungmiraeasset.github.io/mymusic/nhacnen.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+  </audio>
+
+  <!-- Nút bật/tắt nhạc -->
+  <button class="music-btn" id="toggleMusic">▶ Bật nhạc</button>
+
   <script>
+    // Định dạng số tiền
     const soTienInput = document.getElementById('soTien');
     soTienInput.addEventListener('input', function(e) {
       let value = this.value.replace(/\D/g, '');
@@ -162,12 +192,23 @@
         this.value = '';
       }
     });
-  </script>
 
-  <!-- Nhạc nền tự động phát -->
-  <audio autoplay loop>
-    <source src="https://vaytieudungmiraeasset.github.io/mymusic/nhacnen.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ phát nhạc.
-  </audio>
+    // Điều khiển nhạc nền
+    const music = document.getElementById('bgMusic');
+    const toggleBtn = document.getElementById('toggleMusic');
+    let isPlaying = false;
+
+    toggleBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        music.pause();
+        toggleBtn.textContent = "▶ Bật nhạc";
+        isPlaying = false;
+      } else {
+        music.play();
+        toggleBtn.textContent = "⏸ Tắt nhạc";
+        isPlaying = true;
+      }
+    });
+  </script>
 </body>
 </html>
