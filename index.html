@@ -112,7 +112,7 @@
       border: none;
       padding: 8px 14px;
       border-radius: 30px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -120,10 +120,12 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      width: auto; /* chỉ vừa đủ chữ */
+      white-space: nowrap;
     }
 
     .music-btn span {
-      font-size: 18px;
+      font-size: 14px;
     }
 
     .music-btn:hover {
@@ -131,26 +133,12 @@
     }
 
     @media(max-width: 480px) {
-      h2 {
-        font-size: 18px;
-      }
-
-      input, button {
-        font-size: 15px;
-        padding: 10px;
-      }
-
-      .note {
-        font-size: 13px;
-      }
-
       .music-btn {
         font-size: 12px;
-        padding: 6px 12px;
+        padding: 6px 10px;
       }
-
       .music-btn span {
-        font-size: 16px;
+        font-size: 13px;
       }
     }
   </style>
@@ -195,46 +183,9 @@
 
   <!-- Nút bật/tắt nhạc -->
   <button class="music-btn" id="toggleMusic" title="Bật/Tắt nhạc">
-    <span>🎵</span> NGHE NHẠC GIẢI TRÍ TÍ
+    <span>⏸</span> NGHE NHẠC GIẢI TRÍ
   </button>
 
   <script>
     // Định dạng số tiền
     const soTienInput = document.getElementById('soTien');
-    soTienInput.addEventListener('input', function(e) {
-      let value = this.value.replace(/\D/g, '');
-      if (value) {
-        this.value = Number(value).toLocaleString('vi-VN');
-      } else {
-        this.value = '';
-      }
-    });
-
-    // Điều khiển nhạc nền
-    const music = document.getElementById('bgMusic');
-    const toggleBtn = document.getElementById('toggleMusic');
-    let isPlaying = true;
-
-    toggleBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        music.pause();
-        toggleBtn.querySelector("span").textContent = "🔇";
-        isPlaying = false;
-      } else {
-        music.play();
-        toggleBtn.querySelector("span").textContent = "🎵";
-        isPlaying = true;
-      }
-    });
-
-    // fallback nếu autoplay bị chặn
-    document.addEventListener('click', () => {
-      if (!isPlaying) {
-        music.play().catch(()=>{});
-        toggleBtn.querySelector("span").textContent = "🎵";
-        isPlaying = true;
-      }
-    }, { once: true });
-  </script>
-</body>
-</html>
