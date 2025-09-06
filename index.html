@@ -103,20 +103,23 @@
       height: 35px;
     }
 
-    /* Nút nghe nhạc nền */
+    /* Nút nghe nhạc nền nhỏ */
     .music-btn {
       position: fixed;
       bottom: 20px;
       left: 20px;
+      width: 50px;
+      height: 50px;
       background: #ffcc00;
       border: none;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
+      border-radius: 50%;
+      font-size: 22px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .music-btn:hover {
@@ -135,11 +138,6 @@
 
       .note {
         font-size: 13px;
-      }
-
-      .music-btn {
-        padding: 6px 12px;
-        font-size: 12px;
       }
     }
   </style>
@@ -183,7 +181,7 @@
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
-  <button class="music-btn" id="toggleMusic">Tắt nhạc nền</button>
+  <button class="music-btn" id="toggleMusic" title="Bật/Tắt nhạc">🎵</button>
 
   <script>
     // Định dạng số tiền
@@ -205,21 +203,21 @@
     toggleBtn.addEventListener('click', () => {
       if (isPlaying) {
         music.pause();
-        toggleBtn.textContent = "Nghe nhạc nền";
+        toggleBtn.textContent = "🔇"; // đổi icon khi tắt
         isPlaying = false;
       } else {
         music.play();
-        toggleBtn.textContent = "Tắt nhạc nền";
+        toggleBtn.textContent = "🎵"; // đổi icon khi bật
         isPlaying = true;
       }
     });
 
-    // Một số trình duyệt chặn autoplay, xử lý fallback
+    // fallback nếu autoplay bị chặn
     document.addEventListener('click', () => {
       if (!isPlaying) {
         music.play().catch(()=>{});
+        toggleBtn.textContent = "🎵";
         isPlaying = true;
-        toggleBtn.textContent = "Tắt nhạc nền";
       }
     }, { once: true });
   </script>
