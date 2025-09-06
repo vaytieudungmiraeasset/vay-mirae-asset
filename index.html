@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Đăng Ký Vay Tại Mirae Asset</title>
+  <title>Đăng Ký Vay - Mirae Asset</title>
   <style>
     *, *:before, *:after {
       box-sizing: border-box;
@@ -103,20 +103,24 @@
       height: 35px;
     }
 
-    /* Nút bật/tắt nhạc */
+    /* Nút nghe nhạc nền */
     .music-btn {
       position: fixed;
-      bottom: 100px;
-      right: 20px;
+      bottom: 20px;
+      left: 20px;
       background: #ffcc00;
       border: none;
-      padding: 12px 18px;
-      border-radius: 30px;
-      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       z-index: 1000;
+    }
+
+    .music-btn:hover {
+      background: #ffdd33;
     }
 
     @media(max-width: 480px) {
@@ -134,8 +138,8 @@
       }
 
       .music-btn {
-        padding: 10px 15px;
-        font-size: 13px;
+        padding: 6px 12px;
+        font-size: 12px;
       }
     }
   </style>
@@ -173,13 +177,13 @@
   </a>
 
   <!-- Nhạc nền -->
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" autoplay loop>
     <source src="https://vaytieudungmiraeasset.github.io/mymusic/nhacnen.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ phát nhạc.
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
-  <button class="music-btn" id="toggleMusic">▶ Bật nhạc</button>
+  <button class="music-btn" id="toggleMusic">Tắt nhạc nền</button>
 
   <script>
     // Định dạng số tiền
@@ -196,19 +200,28 @@
     // Điều khiển nhạc nền
     const music = document.getElementById('bgMusic');
     const toggleBtn = document.getElementById('toggleMusic');
-    let isPlaying = false;
+    let isPlaying = true;
 
     toggleBtn.addEventListener('click', () => {
       if (isPlaying) {
         music.pause();
-        toggleBtn.textContent = "▶ Bật nhạc";
+        toggleBtn.textContent = "Nghe nhạc nền";
         isPlaying = false;
       } else {
         music.play();
-        toggleBtn.textContent = "⏸ Tắt nhạc";
+        toggleBtn.textContent = "Tắt nhạc nền";
         isPlaying = true;
       }
     });
+
+    // Một số trình duyệt chặn autoplay, xử lý fallback
+    document.addEventListener('click', () => {
+      if (!isPlaying) {
+        music.play().catch(()=>{});
+        isPlaying = true;
+        toggleBtn.textContent = "Tắt nhạc nền";
+      }
+    }, { once: true });
   </script>
 </body>
 </html>
