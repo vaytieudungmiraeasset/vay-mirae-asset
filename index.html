@@ -103,23 +103,27 @@
       height: 35px;
     }
 
-    /* Nút nghe nhạc nền nhỏ */
+    /* Nút nghe nhạc nền */
     .music-btn {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      width: 50px;
-      height: 50px;
       background: #ffcc00;
       border: none;
-      border-radius: 50%;
-      font-size: 22px;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 1000;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 6px;
+    }
+
+    .music-btn span {
+      font-size: 18px;
     }
 
     .music-btn:hover {
@@ -138,6 +142,15 @@
 
       .note {
         font-size: 13px;
+      }
+
+      .music-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+
+      .music-btn span {
+        font-size: 16px;
       }
     }
   </style>
@@ -181,7 +194,9 @@
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
-  <button class="music-btn" id="toggleMusic" title="Bật/Tắt nhạc">🎵</button>
+  <button class="music-btn" id="toggleMusic" title="Bật/Tắt nhạc">
+    <span>🎵</span> NGHE NHẠC GIẢI TRÍ TÍ
+  </button>
 
   <script>
     // Định dạng số tiền
@@ -203,11 +218,11 @@
     toggleBtn.addEventListener('click', () => {
       if (isPlaying) {
         music.pause();
-        toggleBtn.textContent = "🔇"; // đổi icon khi tắt
+        toggleBtn.querySelector("span").textContent = "🔇";
         isPlaying = false;
       } else {
         music.play();
-        toggleBtn.textContent = "🎵"; // đổi icon khi bật
+        toggleBtn.querySelector("span").textContent = "🎵";
         isPlaying = true;
       }
     });
@@ -216,7 +231,7 @@
     document.addEventListener('click', () => {
       if (!isPlaying) {
         music.play().catch(()=>{});
-        toggleBtn.textContent = "🎵";
+        toggleBtn.querySelector("span").textContent = "🎵";
         isPlaying = true;
       }
     }, { once: true });
