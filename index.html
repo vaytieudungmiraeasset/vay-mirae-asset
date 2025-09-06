@@ -189,3 +189,27 @@
   <script>
     // Định dạng số tiền
     const soTienInput = document.getElementById('soTien');
+    soTienInput.addEventListener('input', function() {
+      let value = this.value.replace(/\D/g, '');
+      this.value = value ? Number(value).toLocaleString('vi-VN') : '';
+    });
+
+    // Điều khiển nhạc nền
+    const music = document.getElementById('bgMusic');
+    const toggleBtn = document.getElementById('toggleMusic');
+    let isPlaying = true;
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // tránh reload form
+      if (isPlaying) {
+        music.pause();
+        toggleBtn.querySelector("span").textContent = "▶";
+      } else {
+        music.play().catch(()=>{});
+        toggleBtn.querySelector("span").textContent = "⏸";
+      }
+      isPlaying = !isPlaying;
+    });
+  </script>
+</body>
+</html>
