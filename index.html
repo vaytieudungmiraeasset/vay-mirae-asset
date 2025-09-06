@@ -120,8 +120,9 @@
   </style>
 </head>
 <body>
+  <!-- Form đăng ký -->
   <form action="https://formspree.io/f/xanbnrnk" method="POST" target="_blank">
-    <h2>Đăng Ký Vay Mirae Asset-Hotline 0964307247</h2>
+    <h2>Đăng Ký Vay Mirae Asset - Hotline 0964307247</h2>
 
     <label>Họ và tên:</label>
     <input type="text" name="Họ và tên" placeholder="Nhập họ tên" required />
@@ -136,18 +137,21 @@
     <input type="text" id="soTien" name="Số tiền muốn vay" placeholder="VD: 50.000.000" required />
 
     <button type="submit">Gửi đăng ký</button>
-    <p class="note">( Sau khi đăng ký vui lòng chú ý điện thoại, sẽ có nhân viên gọi lại hỗ trợ tư vấn )</p>
+    <p class="note">(Sau khi đăng ký vui lòng chú ý điện thoại, sẽ có nhân viên gọi lại hỗ trợ tư vấn)</p>
   </form>
 
+  <!-- Footer -->
   <footer>
-    © Copyright 2025 Võ Quốc Thiên.<br>Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt
+    © Copyright 2025 Võ Quốc Thiên.<br>
+    Giải Pháp Vay Tiêu Dùng Uy Tín & Linh Hoạt
   </footer>
 
-  <!-- Nút Zalo nổi góc phải -->
+  <!-- Nút Zalo nổi -->
   <a href="https://zalo.me/0964307247" target="_blank" class="zalo-floating">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Chat Zalo">
   </a>
 
+  <!-- Script định dạng số tiền -->
   <script>
     const soTienInput = document.getElementById('soTien');
     soTienInput.addEventListener('input', function(e) {
@@ -159,5 +163,11 @@
       }
     });
   </script>
+
+  <!-- Nhạc nền tự động phát -->
+  <audio autoplay loop>
+    <source src="https://vaytieudungmiraeasset.github.io/mymusic/nhacnen.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+  </audio>
 </body>
 </html>
